@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Data.Entity;
 using System.Linq;
 
 namespace DynamicOData.Test
@@ -11,8 +12,7 @@ namespace DynamicOData.Test
         {
             var factory = new QueryFactory(TodoItem.Table);
             var filter = new ODataFilter(TodoItem.Table, factory.Type);
-            var query = factory.GetQuery();
-            query = filter.ApplyTo(query, "id eq '1'");
+            var query = filter.ApplyTo(factory.GetQuery(), "id eq '1'");
 
             var expected = @"SELECT 
     [Extent1].[id] AS [id], 
@@ -28,9 +28,8 @@ namespace DynamicOData.Test
             Database.Initialize();
 
             var host = new QueryHost("TodoItem", TodoItem.Columns, "sqlite");
-            // the TodoItem type used here is not the same as the one returned by the IQueryable - anything other than Count() will fail
-            Assert.AreEqual(1, host.GetQuery("id eq '1'").OfType<TodoItem>().Count());
-            Assert.AreEqual(2, host.GetQuery("text eq 'test'").OfType<TodoItem>().Count());
+            Assert.AreEqual(2, host.GetQuery("text eq 'test'").ToListAsync().Result.Count());
+            Assert.AreEqual(2, host.GetQuery("text eq 'test'").ToListAsync().Result.Count());
         }
     }
 }
