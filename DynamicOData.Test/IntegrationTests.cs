@@ -34,6 +34,11 @@ namespace DynamicOData.Test
 
         private void AssertCount(IQueryable query, int expected)
         {
+            // this is interesting - the types aren't the same (the whole idea is to not have a defined type), but count still works
+            var c = query.OfType<TodoItem>().Count();
+            Assert.AreEqual(expected, c);
+
+            // a more reliable way of counting in the absence of a concrete type
             var count = 0;
             foreach (var item in query)
             {
