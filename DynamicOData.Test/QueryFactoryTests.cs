@@ -14,7 +14,7 @@ namespace DynamicOData.Test
         }
 
         [TestMethod]
-        public void Generates_IQueryables()
+        public void Generates_queryables()
         {
             var factory = new QueryFactory(TodoItem.Table);
             Assert.IsInstanceOfType(factory.GetQuery(), typeof(IQueryable));

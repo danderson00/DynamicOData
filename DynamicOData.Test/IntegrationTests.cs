@@ -7,7 +7,7 @@ namespace DynamicOData.Test
     public class IntegrationTests
     {
         [TestMethod]
-        public void Generates_simple_sql()
+        public void Generates_simple_SQL()
         {
             var factory = new QueryFactory(TodoItem.Table);
             var filter = new ODataFilter(TodoItem.Table, factory.Type);

@@ -11,7 +11,8 @@ namespace DynamicOData.Test
             "CREATE TABLE TodoItem (id TEXT, text TEXT)",
             "INSERT INTO TodoItem VALUES ('1', 'test')",
             "INSERT INTO TodoItem VALUES ('2', 'test')",
-            "INSERT INTO TodoItem VALUES ('3', 'test2')"
+            "INSERT INTO TodoItem VALUES ('3', 'test2')",
+            "INSERT INTO TodoItem VALUES ('4', 'test3')"
         };
 
         public static void Initialize()
