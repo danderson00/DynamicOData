@@ -28,23 +28,9 @@ namespace DynamicOData.Test
             Database.Initialize();
 
             var host = new QueryHost("TodoItem", TodoItem.Columns, "sqlite");
-            AssertCount(host.GetQuery("id eq '1'"), 1);
-            AssertCount(host.GetQuery("text eq 'test'"), 2);
-        }
-
-        private void AssertCount(IQueryable query, int expected)
-        {
-            // this is interesting - the types aren't the same (the whole idea is to not have a defined type), but count still works
-            var c = query.OfType<TodoItem>().Count();
-            Assert.AreEqual(expected, c);
-
-            // a more reliable way of counting in the absence of a concrete type
-            var count = 0;
-            foreach (var item in query)
-            {
-                count++;
-            }
-            Assert.AreEqual(expected, count);
+            // the TodoItem type used here is not the same as the one returned by the IQueryable - anything other than Count() will fail
+            Assert.AreEqual(1, host.GetQuery("id eq '1'").OfType<TodoItem>().Count());
+            Assert.AreEqual(2, host.GetQuery("text eq 'test'").OfType<TodoItem>().Count());
         }
     }
 }
