@@ -1,11 +1,16 @@
 ﻿using DynamicOData.Schema;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 class TodoItem
 {
     public string id { get; set; }
     public string text { get; set; }
+    public DateTime createdAt { get; set; }
+    public DateTime updatedAt { get; set; }
+    public bool deleted { get; set; }
+    public string version { get; set; }
 
     public static Table Table
     {
@@ -14,11 +19,7 @@ class TodoItem
             return new Table
             {
                 Name = "TodoItem",
-                Columns = new Column[]
-                {
-                    new Column { Name = "id", Type = typeof (String) },
-                    new Column { Name = "text", Type = typeof (String) }
-                }
+                Columns = Columns.Select(x => new Column { Name = x.Key, Type = x.Value })
             };
         }
     }

@@ -10,6 +10,7 @@ namespace DynamicOData
         {
             return string.Format(@"
 using System;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -21,6 +22,7 @@ public class {0}
 public class TargetContext : DbContext
 {{
     public TargetContext(string connectionString) : base(connectionString) {{ }}
+    public TargetContext(DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection) {{ }}
     public DbSet<{0}> Target {{ get; set; }}
 
     protected override void OnModelCreating(DbModelBuilder model)

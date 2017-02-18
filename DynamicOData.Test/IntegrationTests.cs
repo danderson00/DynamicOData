@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Entity;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace DynamicOData.Test
@@ -16,7 +17,11 @@ namespace DynamicOData.Test
 
             var expected = @"SELECT 
     [Extent1].[id] AS [id], 
-    [Extent1].[text] AS [text]
+    [Extent1].[text] AS [text], 
+    [Extent1].[createdAt] AS [createdAt], 
+    [Extent1].[updatedAt] AS [updatedAt], 
+    [Extent1].[deleted] AS [deleted], 
+    [Extent1].[version] AS [version]
     FROM [dbo].[TodoItem] AS [Extent1]
     WHERE [Extent1].[id] = @p__linq__0";
             Assert.AreEqual(expected, query.ToString());
@@ -28,7 +33,18 @@ namespace DynamicOData.Test
             Database.Initialize();
 
             var host = new QueryHost("TodoItem", TodoItem.Columns, "sqlite");
+            Assert.AreEqual(1, host.GetQuery("id eq '1'").ToListAsync().Result.Count());
             Assert.AreEqual(2, host.GetQuery("text eq 'test'").ToListAsync().Result.Count());
+        }
+
+        [TestMethod]
+        public void Queries_SQLite_database_with_existing_connection()
+        {
+            Database.Initialize();
+
+            var connection = new SQLiteConnection("data source=test.sqlite");
+            var host = new QueryHost("TodoItem", TodoItem.Columns, connection, true);
+            Assert.AreEqual(1, host.GetQuery("id eq '1'").ToListAsync().Result.Count());
             Assert.AreEqual(2, host.GetQuery("text eq 'test'").ToListAsync().Result.Count());
         }
     }
