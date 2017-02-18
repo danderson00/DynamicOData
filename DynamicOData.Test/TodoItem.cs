@@ -28,8 +28,8 @@ class TodoItem
     {
         { "id", typeof (String) },
         { "text", typeof (String) },
-        { "createdAt", typeof (DateTime) },
-        { "updatedAt", typeof (DateTime) },
+        { "createdAt", typeof (DateTimeOffset) },
+        { "updatedAt", typeof (DateTimeOffset) },
         { "deleted", typeof (bool) },
         { "version", typeof (String) }
     };

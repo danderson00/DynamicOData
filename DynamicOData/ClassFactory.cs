@@ -41,7 +41,12 @@ public class TargetContext : DbContext
 
         private static string GetColumnTypeName(Type type)
         {
+            // some data sources don't support DateTimeOffset. Requires unit tests to ensure integrity
+            if (type.Name == "DateTimeOffset")
+                type = typeof(DateTime);
+
             var nullableModifier = type.IsValueType ? "?" : "";
+
             return type.Name + nullableModifier;
         }
     }

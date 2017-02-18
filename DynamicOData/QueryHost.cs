@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace DynamicOData
 {
-    public class QueryHost
+    public class QueryHost : IDisposable
     {
-        private QueryFactory Queries;
+        private QueryFactory QueryFactory;
         private ODataFilter Filter;
 
         public QueryHost(string tableName, Dictionary<string, Type> columns, string connectionStringOrName)
@@ -29,24 +29,29 @@ namespace DynamicOData
 
         public QueryHost(Table table, string connectionStringOrName = null)
         {
-            Queries = new QueryFactory(table, connectionStringOrName);
-            Filter = new ODataFilter(table, Queries.Type);
+            QueryFactory = new QueryFactory(table, connectionStringOrName);
+            Filter = new ODataFilter(table, QueryFactory.Type);
         }
 
         public QueryHost(Table table, DbConnection existingConnection, bool hostOwnsConnection = false)
         {
-            Queries = new QueryFactory(table, existingConnection, hostOwnsConnection);
-            Filter = new ODataFilter(table, Queries.Type);
+            QueryFactory = new QueryFactory(table, existingConnection, hostOwnsConnection);
+            Filter = new ODataFilter(table, QueryFactory.Type);
         }
 
         public IQueryable GetQuery(string odata)
         {
-            return Filter.ApplyTo(Queries.GetQuery(), odata);
+            return Filter.ApplyTo(QueryFactory.GetQuery(), odata);
         }
 
         public IQueryable GetQuery()
         {
-            return Queries.GetQuery();
+            return QueryFactory.GetQuery();
+        }
+
+        public void Dispose()
+        {
+            this.QueryFactory.Dispose();
         }
     }
 }

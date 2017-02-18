@@ -8,7 +8,7 @@ using System.Data.Common;
 
 namespace DynamicOData
 {
-    public class QueryFactory
+    public class QueryFactory : IDisposable
     {
         private DbContext Context { get; set; }
         public Type Type { get; set; }
@@ -53,6 +53,11 @@ namespace DynamicOData
         public IQueryable GetQuery()
         {
             return (IQueryable)this.Context.GetType().GetProperty("Target").GetValue(this.Context);
+        }
+
+        public void Dispose()
+        {
+            this.Context.Dispose();
         }
     }
 }
