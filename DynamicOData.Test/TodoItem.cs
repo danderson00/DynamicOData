@@ -26,6 +26,10 @@ class TodoItem
     public static Dictionary<string, Type> Columns = new Dictionary<string, Type>
     {
         { "id", typeof (String) },
-        { "text", typeof (String) }
+        { "text", typeof (String) },
+        { "createdAt", typeof (DateTime) },
+        { "updatedAt", typeof (DateTime) },
+        { "deleted", typeof (bool) },
+        { "version", typeof (String) }
     };
 }

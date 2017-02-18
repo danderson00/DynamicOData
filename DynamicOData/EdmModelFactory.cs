@@ -35,7 +35,8 @@ namespace DynamicOData
 
         private static IEdmPrimitiveTypeReference MapType(Type type)
         {
-            return EdmCoreModel.Instance.GetPrimitive(EdmCoreModel.Instance.GetPrimitiveTypeKind(type.Name), false);
+            var edmTypeName = type.Name == "Byte[]" ? "Binary" : type.Name;
+            return EdmCoreModel.Instance.GetPrimitive(EdmCoreModel.Instance.GetPrimitiveTypeKind(edmTypeName), true);
         }
     }
 }

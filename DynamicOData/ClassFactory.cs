@@ -1,4 +1,5 @@
 ﻿using DynamicOData.Schema;
+using System;
 using System.Linq;
 
 namespace DynamicOData
@@ -33,7 +34,13 @@ public class TargetContext : DbContext
 
         private static string ColumnSource(Column column)
         {
-            return $"    public {column.Type.Name} {column.Name} {{ get; set; }}";
+            return $"    public {GetColumnTypeName(column.Type)} {column.Name} {{ get; set; }}";
+        }
+
+        private static string GetColumnTypeName(Type type)
+        {
+            var nullableModifier = type.IsValueType ? "?" : "";
+            return type.Name + nullableModifier;
         }
     }
 }

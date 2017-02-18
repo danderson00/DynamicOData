@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DynamicOData</id>
+    <version>0.1.1</version>
+    <title>DynamicOData</title>
+    <authors>danderson00</authors>
+    <owners>danderson00</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/danderson00/DynamicOData</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Query dynamic relational data sources using OData</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>OData EF</tags>
+  </metadata>
+</package>
