@@ -1,7 +1,7 @@
 # DynamicOData
 
 This library converts OData filter queries into IQueryable objects that encapsulate
-a query against a remote database. 
+a query against a remote database, without requiring compiled C# classes. 
 
 The query generator requires an initial schema expressed as an 
 `IDictionary<string, Type>` where each key value pair represents the name and
@@ -33,7 +33,7 @@ The `DynamicOData.QueryHost` object encapsulates functionality.
             { "version", typeof (Byte[]) }
         }, "connectionStringOrName");
 
-    var todoItems = await host
+    List<object> todoItems = await host
 		.GetQuery("createdAt gt datetime'2017-01-01T00:00:00.000Z' and deleted eq false")
 		.ToListAsync();
 
