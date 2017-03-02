@@ -1,7 +1,7 @@
 # DynamicOData
 
-This library converts OData strings into IQueryable objects representing a
-query against a remote database. 
+This library converts OData filter queries into IQueryable objects that encapsulate
+a query against a remote database. 
 
 The query generator requires an initial schema expressed as an 
 `IDictionary<string, Type>` where each key value pair represents the name and
