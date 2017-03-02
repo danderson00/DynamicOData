@@ -36,8 +36,8 @@ namespace DynamicOData
         private static IEdmPrimitiveTypeReference MapType(Type type)
         {
             var edmTypeName = 
-                type.Name == "Byte[]" ? "Binary" : 
-                //type.Name == "DateTimeOffset" ? "DateTime" : // some data sources don't support DateTimeOffset. Requires unit tests to ensure integrity
+                type.Name == "Byte[]" ? "Binary" :
+                type.Name == "DateTimeOffset" ? "DateTime" : // some data sources don't support DateTimeOffset. Requires unit tests to ensure integrity
                 type.Name;
             return EdmCoreModel.Instance.GetPrimitive(EdmCoreModel.Instance.GetPrimitiveTypeKind(edmTypeName), true);
         }

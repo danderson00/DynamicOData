@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Data.Entity;
 using System.Data.SQLite;
 using System.Linq;
@@ -46,6 +47,9 @@ namespace DynamicOData.Test
             var host = new QueryHost("TodoItem", TodoItem.Columns, connection, true);
             Assert.AreEqual(1, host.GetQuery("id eq '1'").ToListAsync().Result.Count());
             Assert.AreEqual(2, host.GetQuery("text eq 'test'").ToListAsync().Result.Count());
+            // dates in SQLite are screwy. They're represented as strings and comparisons don't work quite right. Works fine in SQL Server.
+            Assert.AreEqual(3, host.GetQuery($"createdAt gt datetime'2020-01-01T00:00:00.000Z'").ToListAsync().Result.Count());
+            Assert.AreEqual(2, host.GetQuery($"createdAt lt datetime'{DateTime.Parse("2020-01-03T00:00:00.000Z").ToString("o")}'").ToListAsync().Result.Count());
         }
     }
 }

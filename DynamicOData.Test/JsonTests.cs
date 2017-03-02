@@ -15,7 +15,7 @@ namespace DynamicOData.Test
             var query = host.GetQuery("text eq 'test'");
             var json = JsonConvert.SerializeObject(query);
 
-            Assert.AreEqual(@"[{""id"":""1"",""text"":""test"",""createdAt"":""2017-02-17T16:36:10.985"",""updatedAt"":""2017-02-17T16:36:10.985"",""deleted"":true,""version"":""1""},{""id"":""2"",""text"":""test"",""createdAt"":null,""updatedAt"":null,""deleted"":false,""version"":null}]", json);
+            Assert.AreEqual(@"[{""id"":""1"",""text"":""test"",""createdAt"":""2019-12-31T16:00:00"",""updatedAt"":""2017-02-17T16:36:10.985"",""deleted"":true,""version"":""1""},{""id"":""2"",""text"":""test"",""createdAt"":""2020-01-01T16:00:00"",""updatedAt"":null,""deleted"":false,""version"":null}]", json);
         }
     }
 }
