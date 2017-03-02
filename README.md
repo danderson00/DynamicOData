@@ -7,6 +7,10 @@ The query generator requires an initial schema expressed as an
 `IDictionary<string, Type>` where each key value pair represents the name and
 type of a column in the database table.
 
+## Installation
+
+	Install-Package DynamicOData
+
 ## Usage
 
 The `DynamicOData.QueryHost` object encapsulates functionality.
