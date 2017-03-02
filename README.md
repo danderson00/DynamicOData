@@ -32,7 +32,10 @@ The `DynamicOData.QueryHost` object encapsulates functionality.
             { "deleted", typeof (bool) },
             { "version", typeof (Byte[]) }
         }, "connectionStringOrName");
-    var todoItems = await host.GetQuery("createdAt gt datetime'2017-01-01T00:00:00.000Z' and deleted eq false").ToListAsync();
+
+    var todoItems = await host
+		.GetQuery("createdAt gt datetime'2017-01-01T00:00:00.000Z' and deleted eq false")
+		.ToListAsync();
 
 ## How Does it Work?
 
